@@ -4,6 +4,7 @@ import tarfile
 import py7zr
 import streamlit as st
 from pathlib import Path
+import socket
 
 # Function to extract zip, tar, and 7zip files
 def extract_zip(zip_path, extract_to):
@@ -53,10 +54,18 @@ def browse_directory(directory_path):
             if extract_zip(zip_path, extract_to):
                 st.success(f"Extracted {zip_file} successfully!")
                 browse_directory(extract_to)
+def get_local_ip():
+    # Get the local machine name
+    hostname = socket.gethostname()
+    # Get the local IP address using the hostname
+    local_ip = socket.gethostbyname(hostname)
+    return local_ip
+
 
 # Main Streamlit UI
 def main():
     st.title("Course Video Browser")
+    st.write(f"get_local_ip {get_local_ip}")
 
     # Allow user to select directory
     uploaded_dir = st.text_input("Enter directory path", "/path/to/your/courses")
@@ -69,6 +78,9 @@ def main():
             st.error(f"The directory {uploaded_dir} does not exist.")
     else:
         st.error("Please enter a valid directory path.")
+
+
+
 
 # Run the Streamlit app
 if __name__ == "__main__":
