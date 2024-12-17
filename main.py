@@ -1,11 +1,21 @@
+from dotenv import load_dotenv
 import os
+
+# Specify the path to your .config file
+load_dotenv(dotenv_path=".config")
+
+# Now you can access the variables using os.getenv
+var1 = os.getenv("SENDER_EMAIL")
+var2 = os.getenv("RECIEVER_EMAIL")
+var3=os.getenv("APP_PASSWORD")
+
 import zipfile
 import tarfile
 import py7zr
 import streamlit as st
 from pathlib import Path
 import socket
-from smtp_email_connect_v2 import send_email
+from smtp_email_connect import send_email
 
 # Function to extract zip, tar, and 7zip files
 def extract_zip(zip_path, extract_to):
@@ -70,7 +80,7 @@ def main():
     send_email(
         subject="Streamlit app Started Running",
         body=f"App is started Running at port :: {get_local_ip()} /n Enjoy Your Day",
-        to_email="asdasda@gmail.com"
+        to_email=var2
     )
     # Allow user to select directory
     uploaded_dir = st.text_input("Enter directory path", "/path/to/your/courses")
