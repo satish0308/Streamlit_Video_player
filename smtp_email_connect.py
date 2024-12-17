@@ -1,11 +1,22 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from dotenv import load_dotenv
+import os
+
+# Specify the path to your .config file
+load_dotenv(dotenv_path=".config")
+
+# Now you can access the variables using os.getenv
+var1 = os.getenv("SENDER_EMAIL")
+var2 = os.getenv("RECIEVER_EMAIL")
+var3=os.getenv("APP_PASSWORD")
+
 
 def send_email(subject, body, to_email):
     # Your email credentials
-    from_email = "sadasdasda"
-    password = "asdasda8"  # or app password if 2FA enabled
+    from_email = var1
+    password = var3  # or app password if 2FA enabled
 
     # SMTP server configuration for Gmail
     smtp_server = "smtp.gmail.com"
@@ -42,7 +53,7 @@ def send_email(subject, body, to_email):
 # Usage
 if __name__ == '__main__':
     send_email(
-        subject="Test Subject",
+        subject="Test Subject v3",
         body="This is a test email body.",
-        to_email="sadasdasdasd@gmail.com"
+        to_email=var2
     )
