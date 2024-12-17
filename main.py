@@ -5,6 +5,7 @@ import py7zr
 import streamlit as st
 from pathlib import Path
 import socket
+from smtp_email_connect_v2 import send_email
 
 # Function to extract zip, tar, and 7zip files
 def extract_zip(zip_path, extract_to):
@@ -65,8 +66,12 @@ def get_local_ip():
 # Main Streamlit UI
 def main():
     st.title("Course Video Browser")
-    st.write(f"get_local_ip {get_local_ip}")
-
+    st.write(f"get_local_ip {get_local_ip()}")
+    send_email(
+        subject="Streamlit app Started Running",
+        body=f"App is started Running at port :: {get_local_ip()} /n Enjoy Your Day",
+        to_email="asdasda@gmail.com"
+    )
     # Allow user to select directory
     uploaded_dir = st.text_input("Enter directory path", "/path/to/your/courses")
 
